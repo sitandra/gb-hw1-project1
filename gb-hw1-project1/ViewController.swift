@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     private var label: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.backgroundColor = .red
+        label.backgroundColor = .systemOrange
         label.text = "Авторизация"
         return label
     }()
@@ -34,8 +34,13 @@ class ViewController: UIViewController {
         let input = UITextField()
         input.textAlignment = .left
         input.borderStyle = .line
-        input.tintColor = .green
-        input.text = "Логин"
+        input.tintColor = .systemBlue
+        input.placeholder = "Логин"
+        let spacerView = UIView(frame: CGRect(x:0,y:0,width:10,height:10))
+        input.leftViewMode = .always
+        input.leftView = spacerView
+        input.rightViewMode = .always
+        input.rightView = spacerView
         return input
     }()
     
@@ -43,15 +48,22 @@ class ViewController: UIViewController {
         let input = UITextField()
         input.textAlignment = .left
         input.borderStyle = .line
-        input.tintColor = .green
-        input.text = "Пароль"
+        input.tintColor = .systemBlue
+        input.placeholder = "Пароль"
+        input.isSecureTextEntry = true
+        let spacerView = UIView(frame: CGRect(x:0,y:0,width:10,height:10))
+        input.leftViewMode = .always
+        input.leftView = spacerView
+        input.rightViewMode = .always
+        input.rightView = spacerView
         return input
     }()
     
     private var button: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .blue
+        button.backgroundColor = .systemBlue
         button.setTitle("Войти", for: .normal)
+        button.setTitleColor(.systemOrange, for: .highlighted)
         return button
     }()
 
@@ -74,28 +86,32 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             logo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logo.widthAnchor.constraint(equalToConstant: view.frame.size.width/1.5),
+            logo.widthAnchor.constraint(equalToConstant: view.frame.size.width/2),
             logo.heightAnchor.constraint(equalToConstant: view.frame.size.width/2),
             
             label.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 20),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            label.heightAnchor.constraint(equalToConstant: view.frame.size.width/8),
             
             inputLogin.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
             inputLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             inputLogin.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.size.width/5),
             inputLogin.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.size.width/5),
+            inputLogin.heightAnchor.constraint(equalToConstant: view.frame.size.width/10),
             
-            inputPass.topAnchor.constraint(equalTo: inputLogin.bottomAnchor, constant: 20),
+            inputPass.topAnchor.constraint(equalTo: inputLogin.bottomAnchor, constant: 10),
             inputPass.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             inputPass.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.size.width/5),
             inputPass.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.size.width/5),
+            inputPass.heightAnchor.constraint(equalToConstant: view.frame.size.width/10),
             
             button.topAnchor.constraint(equalTo: inputPass.bottomAnchor, constant: 20),
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: view.frame.size.width/10),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -view.frame.size.width/10),
+            button.heightAnchor.constraint(equalToConstant: view.frame.size.width/5)
         ])
     }
 }
