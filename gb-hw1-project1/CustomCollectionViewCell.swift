@@ -9,7 +9,6 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell
 {
-    //@todo: Почему эти штуки у меня не появляются?
     var tap: ((UIImage) -> Void)?
     
     private var imageView = UIImageView(image: UIImage(systemName: "person"))

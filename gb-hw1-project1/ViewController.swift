@@ -121,7 +121,7 @@ private extension ViewController {
     @objc func tap() {
         let FriendsViewController = UINavigationController(rootViewController: TableViewController())
         let GroupsViewController = UINavigationController(rootViewController: TableViewController2())
-        let PhotosViewController = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: UICollectionViewLayout()))
+        let PhotosViewController = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())) // важно collectionViewLayout: UICollectionViewFlowLayout()
         
         FriendsViewController.tabBarItem.title = "Friends"
         GroupsViewController.tabBarItem.title = "Groups"
@@ -130,8 +130,9 @@ private extension ViewController {
         let controllers = [FriendsViewController, GroupsViewController, PhotosViewController]
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = controllers
+        
         navigationController?.pushViewController(tabBarController, animated: true)
-        navigationController?.isNavigationBarHidden = true
-        //self.view.window?.windowScene?.windows.first?.rootViewController = tabBarController
+        navigationController?.isNavigationBarHidden = true // так есть анимация и нет обратной навигации
+        //self.view.window?.windowScene?.windows.first?.rootViewController = tabBarController // так нет антимации
     }
 }
