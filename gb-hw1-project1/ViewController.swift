@@ -8,12 +8,13 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         setupViews()
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
     
     private var logo: UIImageView = {
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
         button.setTitleColor(.systemOrange, for: .highlighted)
         return button
     }()
-
+    
     private func setupViews() {
         view.addSubview(logo)
         view.addSubview(label)
@@ -116,3 +117,21 @@ class ViewController: UIViewController {
     }
 }
 
+private extension ViewController {
+    @objc func tap() {
+        let FriendsViewController = UINavigationController(rootViewController: TableViewController())
+        let GroupsViewController = UINavigationController(rootViewController: TableViewController2())
+        let PhotosViewController = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: UICollectionViewLayout()))
+        
+        FriendsViewController.tabBarItem.title = "Friends"
+        GroupsViewController.tabBarItem.title = "Groups"
+        PhotosViewController.tabBarItem.title = "Photos"
+        
+        let controllers = [FriendsViewController, GroupsViewController, PhotosViewController]
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = controllers
+        navigationController?.pushViewController(tabBarController, animated: true)
+        navigationController?.isNavigationBarHidden = true
+        //self.view.window?.windowScene?.windows.first?.rootViewController = tabBarController
+    }
+}
