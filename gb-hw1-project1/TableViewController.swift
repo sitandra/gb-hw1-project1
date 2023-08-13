@@ -16,6 +16,7 @@ class TableViewController: UITableViewController
         tableView.backgroundColor = .white
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .white
+        print(NetworkService().getFriends())
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

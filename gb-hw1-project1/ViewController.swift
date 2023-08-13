@@ -6,15 +6,24 @@
 //
 
 import UIKit
+import WebKit
 
 class ViewController: UIViewController {
+    
+    private lazy var webView: WKWebView = {
+        let webView = WKWebView(frame: view.bounds)
+        webView.navigationDelegate = self
+        return webView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         setupViews()
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        let url = URL(string: "https://oauth.vk.com/authorize?client_id=" + AppCode.appCode + "&redirect_uri=https://oauth.vk.com/blank.html&scope=262150&display=mobile&response_type=token")
+        webView.load(URLRequest(url: url!))
     }
     
     private var logo: UIImageView = {
@@ -69,12 +78,13 @@ class ViewController: UIViewController {
     }()
     
     private func setupViews() {
-        view.addSubview(logo)
+        /*view.addSubview(logo)
         view.addSubview(label)
         view.addSubview(inputLogin)
         view.addSubview(inputPass)
         view.addSubview(button)
-        setupConstraints()
+        setupConstraints()*/
+        view.addSubview(webView)
     }
     
     private func setupConstraints(){
@@ -134,5 +144,27 @@ private extension ViewController {
         navigationController?.pushViewController(tabBarController, animated: true)
         navigationController?.isNavigationBarHidden = true // так есть анимация и нет обратной навигации
         //self.view.window?.windowScene?.windows.first?.rootViewController = tabBarController // так нет антимации
+    }
+}
+extension ViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
+            decisionHandler(.allow)
+            return
+        }
+        let params = fragment.components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=")}
+            .reduce([String: String]()) {result, param in
+                var dict = result
+                let key = param[0]
+                let value = param[1]
+                dict[key] = value
+                return dict
+            }
+        NetworkService.token = params["access_token"]!
+        NetworkService.userID = params["user_id"]!
+        decisionHandler(.cancel)
+        webView.removeFromSuperview()
+        tap()
     }
 }

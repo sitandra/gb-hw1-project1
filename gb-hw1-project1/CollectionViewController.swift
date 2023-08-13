@@ -14,6 +14,7 @@ class CollectionViewController: UICollectionViewController{
         collectionView.backgroundColor = .white
         // переиспользование ячеек, чтобы уплывающие освобождали память
         collectionView.register(CustomCollectionViewCell.self, forCellWithReuseIdentifier: Constants.Indentifiers.collectionViewCell)
+        NetworkService().getPhotos()
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
