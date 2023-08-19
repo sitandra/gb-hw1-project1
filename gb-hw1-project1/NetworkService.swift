@@ -72,11 +72,12 @@ final class NetworkService {
     }
     
     func getPhoto(imageURL: String?, completion: @escaping (Data) -> Void) {
-        let url = URL(string: imageURL ?? "")
-        guard let url else { return }
-        session.dataTask(with: url) { (data, _, error) in
-            guard let data else { return }
-            completion(data)
-        }.resume()
+        DispatchQueue.global().async {
+            if let url = URL(string: imageURL ?? ""), let data = try? Data(contentsOf: url) {
+                //DispatchQueue.main.async {
+                    completion(data)
+                //}
+            }
+        }
     }
 }
