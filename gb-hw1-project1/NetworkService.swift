@@ -11,10 +11,14 @@ final class NetworkService {
     
     static var token = ""
     static var userID = ""
-    static let API = "https://api.vk.com/method/"
+    private static let API = "https://api.vk.com/method/"
     
     enum endpoint {
-        static let auth = "user_ids=" + userID + "&access_token=" + token + "&v=5.131"
+        private static let auth = "user_ids=" + userID + "&access_token=" + token + "&v=5.131"
+        private static let shotAuth = "access_token=" + token + "&v=5.131"
+        enum account {
+            static let getProfileInfo = API + "account.getProfileInfo?" + endpoint.shotAuth
+        }
         enum userFriends {
             static let get = API + "friends.get?fields=photo_50,online&" + endpoint.auth
         }
@@ -32,8 +36,8 @@ final class NetworkService {
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
-                let friends = try JSONDecoder().decode(FriendModel.self, from: data)
-                completion(friends)
+                let response = try JSONDecoder().decode(FriendModel.self, from: data)
+                completion(response)
                 //print(friends)
             } catch {
                 print(error)
@@ -47,8 +51,8 @@ final class NetworkService {
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
-                let groups = try JSONDecoder().decode(GroupModel.self, from: data)
-                completion(groups)
+                let response = try JSONDecoder().decode(GroupModel.self, from: data)
+                completion(response)
                 //print(groups)
             } catch {
                 print(error)
@@ -62,8 +66,8 @@ final class NetworkService {
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
-                let photos = try JSONDecoder().decode(PhotoModel.self, from: data)
-                completion(photos)
+                let response = try JSONDecoder().decode(PhotoModel.self, from: data)
+                completion(response)
                 //print(photos)
             } catch {
                 print(error)
@@ -79,5 +83,19 @@ final class NetworkService {
                 //}
             }
         }
+    }
+    
+    func getProfile(completion: @escaping (ProfileModel) -> Void) {
+        let url = URL(string: endpoint.account.getProfileInfo)
+        guard let url else { return }
+        session.dataTask(with: url) { (data, _, error) in
+            guard let data else { return }
+            do {
+                let response = try JSONDecoder().decode(ProfileModel.self, from: data)
+                completion(response)
+            } catch {
+                print(error)
+            }
+        }.resume()
     }
 }

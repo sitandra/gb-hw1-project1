@@ -35,7 +35,15 @@ class PhotosViewController: UICollectionViewController{
         guard let cell = cell as? PhotoViewCell else {
             return UICollectionViewCell()
         }
-        cell.tap = { [weak self] image in self?.navigationController?.pushViewController(PhotoViewController(image: image), animated: true)}
+        cell.tap = { [weak self] image in
+            let animation = CATransition()
+            animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+            animation.type = .fade
+            animation.duration = 1
+            self?.navigationController?.view.layer.add(animation,  forKey: nil)
+            self?.navigationController?.pushViewController(PhotoViewController(image: image), animated: false)
+            
+        }
         let model = model?.response.items[indexPath.row]
         
         /*DispatchQueue.global().async {

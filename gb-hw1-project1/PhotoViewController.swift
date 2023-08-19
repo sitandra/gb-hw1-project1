@@ -27,6 +27,17 @@ final class PhotoViewController: UIViewController {
         setupViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 1, delay: 0, options: [.autoreverse, .repeat], animations: {
+            self.imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+            //self.imageView.transform = CGAffineTransform(rotationAngle: .pi/4)
+        })
+        UIView.animate(withDuration: 3, delay: 1, options: [.autoreverse, .repeat], animations: {
+            self.imageView.layer.opacity = 0
+        })
+    }
+    
     private func setupViews() {
         view.addSubview(imageView)
         setupConstraints()
