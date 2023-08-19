@@ -16,97 +16,67 @@ final class NetworkService {
     enum endpoint {
         static let auth = "user_ids=" + userID + "&access_token=" + token + "&v=5.131"
         enum userFriends {
-            static let get = API + "friends.get?fields=bdate&" + endpoint.auth
+            static let get = API + "friends.get?fields=photo_50,online&" + endpoint.auth
         }
         enum userGroups {
-            static let get = API + "groups.get?extended=1&fields=name&offset=0&count=10&" + endpoint.auth
+            static let get = API + "groups.get?extended=1&fields=name,description&offset=0&count=10&" + endpoint.auth
         }
         enum userPhotos {
-            static let get = API + "photos.get?album_id=wall&offset=0&count=10&" + endpoint.auth
+            static let get = API + "photos.get?album_id=wall&offset=0&count=50&" + endpoint.auth
         }
     }
     
-    func getFriends() {
+    func getFriends(completion: @escaping (FriendModel) -> Void) {
         let url = URL(string: endpoint.userFriends.get)
         guard let url else { return }
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
                 let friends = try JSONDecoder().decode(FriendModel.self, from: data)
-                print(friends)
+                completion(friends)
+                //print(friends)
             } catch {
                 print(error)
             }
         }.resume()
     }
     
-    func getGroups() {
+    func getGroups(completion: @escaping (GroupModel) -> Void) {
         let url = URL(string: endpoint.userGroups.get)
         guard let url else { return }
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
                 let groups = try JSONDecoder().decode(GroupModel.self, from: data)
-                print(groups)
+                completion(groups)
+                //print(groups)
             } catch {
                 print(error)
             }
         }.resume()
     }
     
-    func getPhotos() {
+    func getPhotos(completion: @escaping (PhotoModel) -> Void) {
         let url = URL(string: endpoint.userPhotos.get)
         guard let url else { return }
         session.dataTask(with: url) { (data, _, error) in
             guard let data else { return }
             do {
                 let photos = try JSONDecoder().decode(PhotoModel.self, from: data)
-                print(photos)
+                completion(photos)
+                //print(photos)
             } catch {
                 print(error)
             }
         }.resume()
     }
     
-    /*func getData() {
-        let url = URL(string: "https://kudago.com/public-api/v1.2/locations/?lang=ru&fields=timezone,name,currency,coords")
-        guard let url else {
-            return
-        }
-        session.dataTask(with: url) { (data, _, error) in
-            guard let data else {
-                return
-            }
-            do {
-                let towns = try
-                JSONDecoder().decode([TownModel].self, from: data)
-                print(towns)
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }
-    
-    func getCat(with code:Int) {
-        let url = URL(string: "https://http.cat/" + String(code))
+    func getPhoto(imageURL: String?, completion: @escaping (Data) -> Void) {
+        let url = URL(string: imageURL ?? "")
         guard let url else { return }
-        session.dataTask(with: url) { (data, _, _) in
-            print(data)
+        session.dataTask(with: url) { (data, _, error) in
+            guard let data else { return }
+            completion(data)
         }.resume()
     }
-    
-    func getNews() {
-        let url = URL (string: "https://kudago.com/public-api/v1.2/news/?fields=publication_date,title,body_text&text_format=text&actual_only=true")
-        // безопаснее, чем ! после url:
-        // guard let url else { return }
-        session.dataTask(with: url!) { (data, _, error) in
-            guard let data else { return }
-            do {
-                let news = try JSONDecoder().decode(NewsModel.self, from: data)
-                print(news)
-            } catch {
-                print(error)
-            }
-        }.resume()
-    }*/
 }

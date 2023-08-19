@@ -16,6 +16,8 @@ struct FriendModel: Decodable {
             var id: Int32
             //var bdate: String?
             //var trackCode: String
+            var photoIcon: String?
+            var isOnline: Int
             var firstName: String
             var lastName: String
             //var canAccessClosed: Bool
@@ -24,6 +26,8 @@ struct FriendModel: Decodable {
                 case id
                 //case bdate
                 //case trackCode = "track_code"
+                case photoIcon = "photo_50"
+                case isOnline = "online"
                 case firstName = "first_name"
                 case lastName = "last_name"
                 //case canAccessClosed = "can_access_closed"

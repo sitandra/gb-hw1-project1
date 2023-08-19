@@ -15,6 +15,15 @@ struct GroupModel: Decodable {
         struct UserGroup: Decodable {
             var id: Int32
             var name: String
+            var description: String
+            var photoIcon: String
+            
+            enum CodingKeys: String, CodingKey {
+                case id
+                case name
+                case description
+                case photoIcon = "photo_50"
+            }
         }
     }
 }

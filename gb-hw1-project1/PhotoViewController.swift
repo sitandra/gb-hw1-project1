@@ -6,12 +6,14 @@
 //
 
 import UIKit
-final class ImageViewController: UIViewController {
+final class PhotoViewController: UIViewController {
     private var imageView = UIImageView()
     
     init(image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         imageView.image = image
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         title = "Image"
     }
     
@@ -35,8 +37,8 @@ final class ImageViewController: UIViewController {
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: view.frame.size.width/2),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+            imageView.widthAnchor.constraint(equalToConstant: view.frame.size.width - 10),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, constant: 50)
         ])
     }
 }

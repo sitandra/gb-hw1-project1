@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController {
+class AuthViewController: UIViewController {
     
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: view.bounds)
@@ -19,9 +19,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // Do any additional setup after loading the view.
         setupViews()
-        //button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        // AppCode не прилинкуется, потому что в нем ID приложения VK
         let url = URL(string: "https://oauth.vk.com/authorize?client_id=" + AppCode.appCode + "&redirect_uri=https://oauth.vk.com/blank.html&scope=262150&display=mobile&response_type=token")
         webView.load(URLRequest(url: url!))
     }
@@ -127,11 +126,11 @@ class ViewController: UIViewController {
     }
 }
 
-private extension ViewController {
+private extension AuthViewController {
     @objc func tap() {
-        let FriendsViewController = UINavigationController(rootViewController: TableViewController())
-        let GroupsViewController = UINavigationController(rootViewController: TableViewController2())
-        let PhotosViewController = UINavigationController(rootViewController: CollectionViewController(collectionViewLayout: UICollectionViewFlowLayout())) // важно collectionViewLayout: UICollectionViewFlowLayout()
+        let FriendsViewController = UINavigationController(rootViewController: FriendsViewController())
+        let GroupsViewController = UINavigationController(rootViewController: GroupsViewController())
+        let PhotosViewController = UINavigationController(rootViewController: PhotosViewController(collectionViewLayout: UICollectionViewFlowLayout())) // важно collectionViewLayout: UICollectionViewFlowLayout()
         
         FriendsViewController.tabBarItem.title = "Friends"
         GroupsViewController.tabBarItem.title = "Groups"
@@ -146,7 +145,7 @@ private extension ViewController {
         //self.view.window?.windowScene?.windows.first?.rootViewController = tabBarController // так нет антимации
     }
 }
-extension ViewController: WKNavigationDelegate {
+extension AuthViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
             decisionHandler(.allow)
@@ -163,6 +162,8 @@ extension ViewController: WKNavigationDelegate {
             }
         NetworkService.token = params["access_token"]!
         NetworkService.userID = params["user_id"]!
+        print(NetworkService.token)
+        print(NetworkService.userID)
         decisionHandler(.cancel)
         webView.removeFromSuperview()
         tap()

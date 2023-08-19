@@ -7,16 +7,16 @@
 
 import UIKit
 
-class CustomCollectionViewCell: UICollectionViewCell
+class PhotoViewCell: UICollectionViewCell
 {
     var tap: ((UIImage) -> Void)?
     
-    private var imageView = UIImageView(image: UIImage(systemName: "person"))
+    private var imageView = UIImageView(image: UIImage(systemName: "heart"))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //contentView.backgroundColor = .systemMint
-    
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         setupViews()
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(cellTap))
         addGestureRecognizer(recognizer)
@@ -24,6 +24,10 @@ class CustomCollectionViewCell: UICollectionViewCell
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupImage(image: UIImage) {
+        self.imageView.image = image
     }
     
     private func setupViews() {
