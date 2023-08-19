@@ -47,7 +47,7 @@ class FriendViewCell: UITableViewCell
         onlineCircle.backgroundColor = friend?.isOnline == 1 ? Constants.Views.Detector.onlineColor : Constants.Views.Detector.offlineColor
     }
     
-    func setupImage(image: UIImage) {
+    func setupImage(image: UIImage?) {
         self.photo.image = image
     }
     

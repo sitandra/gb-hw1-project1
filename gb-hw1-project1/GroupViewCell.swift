@@ -47,7 +47,7 @@ class GroupViewCell: UITableViewCell
         groupDescription.text = group?.description ?? "Description"
     }
     
-    func setupImage(image: UIImage) {
+    func setupImage(image: UIImage?) {
         self.photo.image = image
     }
     

@@ -45,12 +45,20 @@ class GroupsViewController: UITableViewController
         }
         let model = model?.response.items[indexPath.row]
         cell.setup(group: model)
-        networkService.getPhoto(imageURL: model?.photoIcon) { [weak cell] imgData in
+        
+        DispatchQueue.global().async {
+            if let url = URL(string: model?.photoIcon ?? ""), let data = try? Data(contentsOf: url) {
+                DispatchQueue.main.async {
+                    cell.setupImage(image: UIImage(data: data) ?? UIImage(systemName: "none"))
+                }
+            }
+        }
+        /*networkService.getPhoto(imageURL: model?.photoIcon) { [weak cell] imgData in
             guard let image = UIImage(data: imgData) else {return}
             DispatchQueue.main.async {
                 cell?.setupImage(image: image)
             }
-        }
+        }*/
         return cell
     }
     
