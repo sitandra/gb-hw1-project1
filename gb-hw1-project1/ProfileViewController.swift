@@ -20,7 +20,6 @@ class ProfileViewController: UIViewController, ThemeViewDelegate {
         self.name.text = name
         self.avatar.image = photo
         themeView.delegate = self
-        themeView.isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
