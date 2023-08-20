@@ -6,8 +6,15 @@
 //
 
 import Foundation
+import Network
+
 final class NetworkService {
+    enum NetworkError: Error {
+        case dataError
+        case networkError
+    }
     private let session = URLSession.shared
+    //private let monitor = NWPathMonitor()
     
     static var token = ""
     static var userID = ""
@@ -30,17 +37,27 @@ final class NetworkService {
         }
     }
     
-    func getFriends(completion: @escaping (FriendModel) -> Void) {
+    func getFriends(completion: @escaping (Result<FriendModel, Error>) -> Void) {
         let url = URL(string: endpoint.userFriends.get)
         guard let url else { return }
+        /*if monitor.currentPath.status == .unsatisfied {
+            completion(.failure(NetworkError.networkError))
+            return
+        }*/
         session.dataTask(with: url) { (data, _, error) in
-            guard let data else { return }
+            guard let data else {
+                completion(.failure(NetworkError.dataError))
+                return
+            }
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             do {
                 let response = try JSONDecoder().decode(FriendModel.self, from: data)
-                completion(response)
-                //print(friends)
+                completion(.success(response))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         }.resume()
     }

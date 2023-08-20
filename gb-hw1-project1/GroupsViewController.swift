@@ -15,8 +15,8 @@ class GroupsViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Groups"
-        view.backgroundColor = .white
-        tableView.backgroundColor = .white
+        //view.backgroundColor = Theme.currentTheme.backgroundColor
+        //tableView.backgroundColor = Theme.currentTheme.backgroundColor
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .white
         //print(NetworkService().getGroups())
@@ -28,6 +28,12 @@ class GroupsViewController: UITableViewController
                 self?.tableView.reloadData()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = Theme.currentTheme.backgroundColor
+        tableView.backgroundColor = Theme.currentTheme.backgroundColor
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -7,28 +7,50 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
-    
+class ProfileViewController: UIViewController, ThemeViewDelegate {
     private var networkService = NetworkService()
     private var model: ProfileModel? = nil
     
+    private var themeView = ThemeView()
+    private var isUserProfile: Bool
+    
+    init(name: String? = nil, photo: UIImage? = nil, isUserProfile: Bool) {
+        self.isUserProfile = isUserProfile
+        super.init(nibName: nil, bundle: nil)
+        self.name.text = name
+        self.avatar.image = photo
+        themeView.delegate = self
+        themeView.isUserInteractionEnabled = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = Theme.currentTheme.backgroundColor
         self.title = "Profile"
         setupViews()
-        
-        networkService.getProfile { [weak self] model in
-            DispatchQueue.main.async {
-                self?.name.text = model.response.firstName + " " + model.response.lastName
-                self?.networkService.getPhoto(imageURL: model.response.photo) { [weak self] imgData in
-                    guard let image = UIImage(data: imgData) else {return}
-                    DispatchQueue.main.async {
-                        self?.avatar.image = image
+        if isUserProfile {
+            networkService.getProfile { [weak self] model in
+                DispatchQueue.main.async {
+                    self?.name.text = model.response.firstName + " " + model.response.lastName
+                    self?.networkService.getPhoto(imageURL: model.response.photo) { [weak self] imgData in
+                        guard let image = UIImage(data: imgData) else {return}
+                        DispatchQueue.main.async {
+                            self?.avatar.image = image
+                        }
                     }
                 }
             }
+        } else {
+            themeView.isHidden = true
         }
+    }
+    
+    func updateColor() {
+        view.backgroundColor = Theme.currentTheme.backgroundColor
     }
     
     private var avatar: UIImageView = {
@@ -45,15 +67,19 @@ class ProfileViewController: UIViewController {
         return label
     }()
     
+    
+    
     private func setupViews() {
         view.addSubview(avatar)
         view.addSubview(name)
+        view.addSubview(themeView)
         setupConstraints()
     }
     
     private func setupConstraints(){
         avatar.translatesAutoresizingMaskIntoConstraints = false
         name.translatesAutoresizingMaskIntoConstraints = false
+        themeView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             avatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -67,6 +93,10 @@ class ProfileViewController: UIViewController {
             name.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             name.heightAnchor.constraint(equalToConstant: view.frame.size.width/8),
             
+            themeView.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 40),
+            themeView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            themeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            themeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
         ])
     }

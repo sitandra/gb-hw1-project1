@@ -18,11 +18,16 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        //view.backgroundColor = Theme.currentTheme.backgroundColor
         setupViews()
         // AppCode не прилинкуется, потому что в нем ID приложения VK
         let url = URL(string: "https://oauth.vk.com/authorize?client_id=" + AppCode.appCode + "&redirect_uri=https://oauth.vk.com/blank.html&scope=262150&display=mobile&response_type=token")
         webView.load(URLRequest(url: url!))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = Theme.currentTheme.backgroundColor
     }
     
     private var logo: UIImageView = {

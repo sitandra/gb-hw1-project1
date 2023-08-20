@@ -14,16 +14,20 @@ class PhotosViewController: UICollectionViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Photos"
-        collectionView.backgroundColor = .white
         // переиспользование ячеек, чтобы уплывающие освобождали память
         collectionView.register(PhotoViewCell.self, forCellWithReuseIdentifier: Constants.Indentifiers.photoViewCell)
-        //NetworkService().getPhotos()
         networkService.getPhotos { [weak self] photos in
             self?.model = photos
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.backgroundColor = Theme.currentTheme.backgroundColor
+        collectionView.backgroundColor = Theme.currentTheme.backgroundColor
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
