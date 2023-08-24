@@ -90,10 +90,10 @@ final class FileCache {
         addGroupDate()
     }
     
-    func fetchGroups() -> [GroupModel.GroupResponse.UserGroup] {
+    func fetchGroups() -> GroupModel? {
         let fetchRequest: NSFetchRequest<GroupModelCD> = GroupModelCD.fetchRequest()
         guard let groups = try? persistentContainer.viewContext.fetch(fetchRequest) else {
-            return []
+            return nil
         }
         var newGroups: [GroupModel.GroupResponse.UserGroup] = []
         for group in groups {
@@ -104,7 +104,8 @@ final class FileCache {
                 photoIcon: group.photo ?? ""
             ))
         }
-        return newGroups
+        let newModel: GroupModel = GroupModel(response: GroupModel.GroupResponse(count: 0, items: newGroups))
+        return newModel
     }
     
     func addFriendDate() {

@@ -11,22 +11,36 @@ class GroupsViewController: UITableViewController
 {
     private var networkService = NetworkService()
     private var model: GroupModel? = nil
+    private var fileCache = FileCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Groups"
-        //view.backgroundColor = Theme.currentTheme.backgroundColor
-        //tableView.backgroundColor = Theme.currentTheme.backgroundColor
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .white
-        //print(NetworkService().getGroups())
         
         tableView.register(GroupViewCell.self, forCellReuseIdentifier: Constants.Indentifiers.groupViewCell)
-        networkService.getGroups() { [weak self] groups in
-            self?.model = groups
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(update), for: .valueChanged)
+        loadGroups{}
+    }
+    
+    private func loadGroups(completion: @escaping () -> Void) {
+        networkService.getGroups { [weak self] result in
+            switch result {
+            case .success(let response):
+                self?.model = response
+                self?.fileCache.addGroups(groups: response.response.items)
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(_):
+                self?.model = self?.fileCache.fetchGroups()
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                }
             }
+            completion()
         }
     }
     
@@ -68,4 +82,21 @@ class GroupsViewController: UITableViewController
         return cell
     }
     
+}
+private extension GroupsViewController {
+    @objc func update() {
+        loadGroups {[weak self] in
+            DispatchQueue.main.async {
+                self?.refreshControl?.endRefreshing()
+            }
+        }
+    }
+}
+private extension GroupsViewController {
+    func showAlert() {
+        let date = Theme.drawDate(date: fileCache.fetchGroupDate())
+        let alert = UIAlertController(title: "Can't get data", message: "Last update was \(date)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
 }

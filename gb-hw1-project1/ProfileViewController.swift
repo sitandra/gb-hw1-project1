@@ -93,7 +93,7 @@ class ProfileViewController: UIViewController, ThemeViewDelegate {
             name.heightAnchor.constraint(equalToConstant: view.frame.size.width/8),
             
             themeView.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 40),
-            themeView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            themeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             themeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             themeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             

@@ -27,7 +27,7 @@ final class NetworkService {
             static let getProfileInfo = API + "account.getProfileInfo?" + endpoint.shotAuth
         }
         enum userFriends {
-            static let get = API + "friends.get?fields=photo_50,online&" + endpoint.auth
+            static let get = API + "friends.get?fields=photo_200_orig,online&" + endpoint.auth
         }
         enum userGroups {
             static let get = API + "groups.get?extended=1&fields=name,description&offset=0&count=10&" + endpoint.auth
@@ -62,17 +62,23 @@ final class NetworkService {
         }.resume()
     }
     
-    func getGroups(completion: @escaping (GroupModel) -> Void) {
+    func getGroups(completion: @escaping (Result<GroupModel, Error>) -> Void) {
         let url = URL(string: endpoint.userGroups.get)
         guard let url else { return }
         session.dataTask(with: url) { (data, _, error) in
-            guard let data else { return }
+            guard let data else {
+                completion(.failure(NetworkError.dataError))
+                return
+            }
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
             do {
                 let response = try JSONDecoder().decode(GroupModel.self, from: data)
-                completion(response)
-                //print(groups)
+                completion(.success(response))
             } catch {
-                print(error)
+                completion(.failure(error))
             }
         }.resume()
     }

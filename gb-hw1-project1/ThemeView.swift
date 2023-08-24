@@ -77,7 +77,7 @@ final class ThemeView: UIView {
         theme3Button.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            themeTitle.centerYAnchor.constraint(equalTo: centerYAnchor),
+            themeTitle.topAnchor.constraint(equalTo: self.topAnchor),
             themeTitle.centerXAnchor.constraint(equalTo: centerXAnchor),
             themeTitle.leadingAnchor.constraint(equalTo: leadingAnchor),
             themeTitle.trailingAnchor.constraint(equalTo: trailingAnchor),

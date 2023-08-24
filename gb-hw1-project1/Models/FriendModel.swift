@@ -26,7 +26,7 @@ struct FriendModel: Decodable {
                 case id
                 //case bdate
                 //case trackCode = "track_code"
-                case photoIcon = "photo_50"
+                case photoIcon = "photo_200_orig"
                 case isOnline = "online"
                 case firstName = "first_name"
                 case lastName = "last_name"
