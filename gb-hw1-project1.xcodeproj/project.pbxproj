@@ -15,6 +15,9 @@
 		DF39E65D2A840D22006880EE /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39E65C2A840D22006880EE /* PhotoViewController.swift */; };
 		DF39E65F2A84160A006880EE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF39E65E2A84160A006880EE /* Constants.swift */; };
 		DF77000E2A927A66006F663E /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77000D2A927A66006F663E /* ThemeView.swift */; };
+		DF7700102A9B66F4006F663E /* ThemeSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF77000F2A9B66F4006F663E /* ThemeSaver.swift */; };
+		DF7700122A9B8AFE006F663E /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7700112A9B8AFE006F663E /* DateHelper.swift */; };
+		DF7700142A9B8B70006F663E /* DateHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7700132A9B8B70006F663E /* DateHelperTests.swift */; };
 		DF9BF5C82A910958009B3AAF /* GroupViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9BF5C72A910958009B3AAF /* GroupViewCell.swift */; };
 		DF9BF5CC2A915096009B3AAF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9BF5CB2A915096009B3AAF /* ProfileViewController.swift */; };
 		DF9BF5CE2A915918009B3AAF /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9BF5CD2A915918009B3AAF /* ProfileModel.swift */; };
@@ -26,7 +29,6 @@
 		DFA1A1892A7E4D7400582180 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A1882A7E4D7400582180 /* AuthViewController.swift */; };
 		DFA1A18E2A7E4D7500582180 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFA1A18D2A7E4D7500582180 /* Assets.xcassets */; };
 		DFA1A1912A7E4D7500582180 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFA1A18F2A7E4D7500582180 /* LaunchScreen.storyboard */; };
-		DFA1A19C2A7E4D7500582180 /* gb_hw1_project1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A19B2A7E4D7500582180 /* gb_hw1_project1Tests.swift */; };
 		DFA1A1A62A7E4D7500582180 /* gb_hw1_project1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A1A52A7E4D7500582180 /* gb_hw1_project1UITests.swift */; };
 		DFA1A1A82A7E4D7500582180 /* gb_hw1_project1UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA1A1A72A7E4D7500582180 /* gb_hw1_project1UITestsLaunchTests.swift */; };
 		DFC076F22A87769600C441D6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC076F12A87769600C441D6 /* NetworkService.swift */; };
@@ -63,6 +65,9 @@
 		DF39E65C2A840D22006880EE /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		DF39E65E2A84160A006880EE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF77000D2A927A66006F663E /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
+		DF77000F2A9B66F4006F663E /* ThemeSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSaver.swift; sourceTree = "<group>"; };
+		DF7700112A9B8AFE006F663E /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		DF7700132A9B8B70006F663E /* DateHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelperTests.swift; sourceTree = "<group>"; };
 		DF9BF5C72A910958009B3AAF /* GroupViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewCell.swift; sourceTree = "<group>"; };
 		DF9BF5CB2A915096009B3AAF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DF9BF5CD2A915918009B3AAF /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -77,7 +82,6 @@
 		DFA1A1902A7E4D7500582180 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFA1A1922A7E4D7500582180 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFA1A1972A7E4D7500582180 /* gb-hw1-project1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "gb-hw1-project1Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFA1A19B2A7E4D7500582180 /* gb_hw1_project1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gb_hw1_project1Tests.swift; sourceTree = "<group>"; };
 		DFA1A1A12A7E4D7500582180 /* gb-hw1-project1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "gb-hw1-project1UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFA1A1A52A7E4D7500582180 /* gb_hw1_project1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gb_hw1_project1UITests.swift; sourceTree = "<group>"; };
 		DFA1A1A72A7E4D7500582180 /* gb_hw1_project1UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gb_hw1_project1UITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -140,12 +144,14 @@
 				DFC076FC2A88FD3600C441D6 /* Models */,
 				DFC076F72A88D9D300C441D6 /* AppCode */,
 				DFA1A1842A7E4D7400582180 /* AppDelegate.swift */,
+				DF7700112A9B8AFE006F663E /* DateHelper.swift */,
 				DFA1A1862A7E4D7400582180 /* SceneDelegate.swift */,
 				DF39E65E2A84160A006880EE /* Constants.swift */,
 				DFA1A1882A7E4D7400582180 /* AuthViewController.swift */,
 				DF9BF5CB2A915096009B3AAF /* ProfileViewController.swift */,
 				DF9BF6112A9238DB009B3AAF /* Theme.swift */,
 				DF77000D2A927A66006F663E /* ThemeView.swift */,
+				DF77000F2A9B66F4006F663E /* ThemeSaver.swift */,
 				DF9BF6132A9241B4009B3AAF /* DataModel.xcdatamodeld */,
 				DF9BF6162A92431B009B3AAF /* FileCache.swift */,
 				DF39E6522A83EA4C006880EE /* FriendsViewController.swift */,
@@ -167,7 +173,7 @@
 		DFA1A19A2A7E4D7500582180 /* gb-hw1-project1Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DFA1A19B2A7E4D7500582180 /* gb_hw1_project1Tests.swift */,
+				DF7700132A9B8B70006F663E /* DateHelperTests.swift */,
 			);
 			path = "gb-hw1-project1Tests";
 			sourceTree = "<group>";
@@ -340,6 +346,7 @@
 				DFA1A1852A7E4D7400582180 /* AppDelegate.swift in Sources */,
 				DF9BF5C82A910958009B3AAF /* GroupViewCell.swift in Sources */,
 				DF9BF5CC2A915096009B3AAF /* ProfileViewController.swift in Sources */,
+				DF7700122A9B8AFE006F663E /* DateHelper.swift in Sources */,
 				DFC076FB2A88F48A00C441D6 /* AppCode.swift in Sources */,
 				DF9BF5CE2A915918009B3AAF /* ProfileModel.swift in Sources */,
 				DF39E65F2A84160A006880EE /* Constants.swift in Sources */,
@@ -347,6 +354,7 @@
 				DFA1A1872A7E4D7400582180 /* SceneDelegate.swift in Sources */,
 				DFC077002A8902D000C441D6 /* GroupModel.swift in Sources */,
 				DF9BF6122A9238DB009B3AAF /* Theme.swift in Sources */,
+				DF7700102A9B66F4006F663E /* ThemeSaver.swift in Sources */,
 				DF39E6532A83EA4C006880EE /* FriendsViewController.swift in Sources */,
 				DF9BF6172A92431B009B3AAF /* FileCache.swift in Sources */,
 				DFC076FE2A88FD5500C441D6 /* FriendModel.swift in Sources */,
@@ -360,7 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFA1A19C2A7E4D7500582180 /* gb_hw1_project1Tests.swift in Sources */,
+				DF7700142A9B8B70006F663E /* DateHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

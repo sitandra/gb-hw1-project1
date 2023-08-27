@@ -105,15 +105,18 @@ private extension ThemeView {
         Theme.currentTheme  = WhiteTheme()
         backgroundColor = Theme.currentTheme.backgroundColor
         delegate?.updateColor()
+        ThemeSaver.putData()
     }
     @objc func tap2Theme() {
         Theme.currentTheme  = BlueTheme()
         backgroundColor = Theme.currentTheme.backgroundColor
         delegate?.updateColor()
+        ThemeSaver.putData()
     }
     @objc func tap3Theme() {
         Theme.currentTheme  = GreenTheme()
         backgroundColor = Theme.currentTheme.backgroundColor
         delegate?.updateColor()
+        ThemeSaver.putData()
     }
 }

@@ -50,13 +50,6 @@ class PhotosViewController: UICollectionViewController{
         }
         let model = model?.response.items[indexPath.row]
         
-        /*DispatchQueue.global().async {
-            if let url = URL(string: model?.sizes.last?.url ?? ""), let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    cell.setupImage(image: UIImage(data: data) ?? UIImage(systemName: "none"))
-                }
-            }
-        }*/
         networkService.getPhoto(imageURL: model?.sizes.last?.url) { [weak cell] imgData in
             guard let image = UIImage(data: imgData) else {return}
             DispatchQueue.main.async {

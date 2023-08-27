@@ -16,6 +16,8 @@ class FriendsViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Friends"
+        model = fileCache.fetchFriends()
+        tableView.reloadData();
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person"), style: .plain, target: self, action: #selector(profileTap))
@@ -101,7 +103,7 @@ private extension FriendsViewController {
 
 private extension FriendsViewController {
     func showAlert() {
-        let date = Theme.drawDate(date: fileCache.fetchFriendDate())
+        let date = DateHelper.drawDate(date: fileCache.fetchFriendDate())
         let alert = UIAlertController(title: "Can't get data", message: "Last update was \(date)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)

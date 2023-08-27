@@ -16,6 +16,8 @@ class GroupsViewController: UITableViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Groups"
+        model = fileCache.fetchGroups()
+        tableView.reloadData();
         navigationController?.navigationBar.tintColor = .black
         navigationController?.navigationBar.barTintColor = .white
         
@@ -66,13 +68,6 @@ class GroupsViewController: UITableViewController
         let model = model?.response.items[indexPath.row]
         cell.setup(group: model)
         
-        /*DispatchQueue.global().async {
-            if let url = URL(string: model?.photoIcon ?? ""), let data = try? Data(contentsOf: url) {
-                DispatchQueue.main.async {
-                    cell.setupImage(image: UIImage(data: data) ?? UIImage(systemName: "none"))
-                }
-            }
-        }*/
         networkService.getPhoto(imageURL: model?.photoIcon) { [weak cell] imgData in
             guard let image = UIImage(data: imgData) else {return}
             DispatchQueue.main.async {
@@ -94,7 +89,7 @@ private extension GroupsViewController {
 }
 private extension GroupsViewController {
     func showAlert() {
-        let date = Theme.drawDate(date: fileCache.fetchGroupDate())
+        let date = DateHelper.drawDate(date: fileCache.fetchGroupDate())
         let alert = UIAlertController(title: "Can't get data", message: "Last update was \(date)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)

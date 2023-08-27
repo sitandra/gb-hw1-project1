@@ -120,10 +120,7 @@ final class FileCache {
         guard let data = try? persistentContainer.viewContext.fetch(fetchRequest) else {
             return nil
         }
-        for datum in data {
-            return datum.date
-        }
-        return nil
+        return data.first?.date
     }
     
     func addGroupDate() {
@@ -138,9 +135,6 @@ final class FileCache {
         guard let data = try? persistentContainer.viewContext.fetch(fetchRequest) else {
             return nil
         }
-        for datum in data {
-            return datum.date
-        }
-        return nil
+        return data.first?.date
     }
 }

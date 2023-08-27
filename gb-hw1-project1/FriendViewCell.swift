@@ -9,7 +9,7 @@ import UIKit
 
 class FriendViewCell: UITableViewCell
 {
-    var tap: ((String, UIImage) -> Void)?
+    var tap: ((String?, UIImage?) -> Void)?
     
     private var photo: UIImageView = {
         let circle = UIImageView(image: UIImage(systemName: "person"))
@@ -36,9 +36,9 @@ class FriendViewCell: UITableViewCell
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .clear
-        setupViews()
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(cellTap))
         addGestureRecognizer(recognizer)
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -91,6 +91,6 @@ class FriendViewCell: UITableViewCell
     }
     
     @objc func cellTap() {
-        tap?(friendName.text ?? "", photo.image ?? UIImage())
+        tap?(friendName.text, photo.image)
     }
 }

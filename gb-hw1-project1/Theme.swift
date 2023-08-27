@@ -8,31 +8,31 @@
 import UIKit
 
 protocol AppTheme {
+    var type: AllAppTheme { get set }
     var backgroundColor: UIColor { get }
+    
+}
+enum AllAppTheme: String {
+    case white = "white"
+    case blue = "blue"
+    case green = "green"
 }
 
 final class Theme {
     static var currentTheme: AppTheme = WhiteTheme()
-    
-    static func drawDate(date: Date?) -> String {
-        if date == nil { return "" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .medium
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeZone = .current
-        dateFormatter.locale = Locale(identifier: "ru_RU")
-        return dateFormatter.string(from: date!)
-    }
 }
 
 final class WhiteTheme: AppTheme {
+    var type: AllAppTheme = .white
     var backgroundColor: UIColor = .white
 }
 
 final class BlueTheme: AppTheme {
+    var type: AllAppTheme = .blue
     var backgroundColor: UIColor = UIColor(red: 228/255, green: 231/255, blue: 1, alpha: 1)
 }
 
 final class GreenTheme: AppTheme {
+    var type: AllAppTheme = .green
     var backgroundColor: UIColor = UIColor(red: 206/255, green: 1, blue: 162/255, alpha: 1)
 }
